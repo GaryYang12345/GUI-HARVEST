@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gui-harvest"
+version = "0.1.0"
+description = "Automatic evidence-driven optimization for GUI-agent harnesses"
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "Apache-2.0"}
+authors = [{name = "GUI-HARVEST Contributors"}]
+dependencies = [
+  "openai>=1.40.0",
+  "python-dotenv>=1.0.0",
+  "Pillow>=10.0.0",
+]
+
+[project.scripts]
+gui-harvest = "gui_harvest.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["gui_harvest*"]
+
+[tool.setuptools.package-data]
+gui_harvest = ["resources/*.md"]
+

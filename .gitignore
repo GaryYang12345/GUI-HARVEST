@@ -1,0 +1,16 @@
+.env
+.venv/
+.gui-harvest/
+__pycache__/
+**/__pycache__/
+*.pyc
+.pytest_cache/
+.DS_Store
+build/
+dist/
+*.egg-info/
+
+# Local evaluator checkouts and rollout output.
+results/
+harness/
+OSWorld/

@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:gui-harvest:schema:validator-verdicts-v1",
+  "title": "GUI-HARVEST Validator verdicts",
+  "type": "object",
+  "required": ["schema_version", "jobs_expected", "jobs_completed", "verdicts"],
+  "properties": {
+    "schema_version": {"const": "gui-harvest-validator-verdicts-v1"},
+    "jobs_expected": {"type": "integer", "minimum": 0},
+    "jobs_completed": {"type": "integer", "minimum": 0},
+    "verdicts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "prediction_id",
+          "task_id",
+          "verdict",
+          "summary",
+          "citations"
+        ],
+        "properties": {
+          "prediction_id": {"type": "string"},
+          "task_id": {"type": "string"},
+          "verdict": {
+            "enum": ["supported", "contradicted", "inconclusive"]
+          },
+          "summary": {"type": "string"},
+          "citations": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "required": ["run", "step", "claim"],
+              "properties": {
+                "run": {"type": "string"},
+                "step": {"type": "integer"},
+                "claim": {"type": "string"}
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:gui-harvest:schema:update-ledger-v1",
+  "title": "GUI-HARVEST update ledger",
+  "type": "object",
+  "required": ["schema_version", "attempts"],
+  "properties": {
+    "schema_version": {"const": "gui-harvest-update-ledger-v1"},
+    "current_harness": {"type": "object"},
+    "last_outcome": {"type": "object"},
+    "attempts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "proposal_id",
+          "base_behavior_hash",
+          "intervention",
+          "predictions",
+          "decision"
+        ],
+        "properties": {
+          "proposal_id": {"type": "string"},
+          "base_behavior_hash": {"type": "string"},
+          "targets": {"type": "array"},
+          "intervention": {"type": "object"},
+          "predictions": {"type": "array"},
+          "validator_verdicts": {"type": "array"},
+          "feedback": {"type": "object"},
+          "decision": {"type": "object"},
+          "revalidations": {"type": "array"},
+          "effective_feedback": {"type": "object"},
+          "effective_validator_verdicts": {"type": "array"},
+          "effective_decision": {"type": "object"}
+        }
+      }
+    }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,56 @@
+config_version = 1
+
+[project]
+name = "my-gui-harvest-project"
+state_dir = ".gui-harvest"
+
+[protocol]
+rollouts_k = 3
+round_budget = 10
+rejection_patience = 5
+
+[splits]
+search_file = "splits/search.json"
+validation_file = "splits/validation.json"
+test_file = "splits/test.json"
+search = 80
+validation = 80
+test = 201
+
+[harness]
+adapter = "agent_s3"
+baseline_root = "../agent-s3"
+harness_card = "HARNESS_CARD.md"
+capability_manifest = "gui-harvest-capability.json"
+
+[benchmark]
+results_root = "../results"
+
+[rollout]
+command = []
+
+[models.analyst]
+backend = "openrouter"
+model = "anthropic/claude-sonnet-5"
+temperature = 0.0
+workers = 4
+
+[models.clusterer]
+backend = "openrouter"
+model = "anthropic/claude-sonnet-5"
+temperature = 0.0
+workers = 1
+
+[models.engineer]
+backend = "local"
+api_backend = "openrouter"
+model = "anthropic/claude-sonnet-5"
+temperature = 0.0
+command = []
+
+[models.validator]
+backend = "openrouter"
+model = "anthropic/claude-sonnet-5"
+temperature = 0.0
+workers = 4
+max_tokens = 4096

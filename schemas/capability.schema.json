@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:gui-harvest:schema:capability-v1",
+  "title": "GUI-HARVEST capability manifest",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "harness_id",
+    "harness_root",
+    "editable_paths",
+    "create_paths",
+    "limits",
+    "l1_commands"
+  ],
+  "properties": {
+    "schema_version": {"const": "gui-harvest-capability-manifest-v1"},
+    "harness_id": {"type": "string"},
+    "harness_root": {"type": "string"},
+    "editable_paths": {"type": "array", "items": {"type": "string"}},
+    "create_paths": {"type": "array", "items": {"type": "string"}},
+    "read_only_paths": {"type": "array", "items": {"type": "string"}},
+    "forbidden_content_regex": {"type": "array", "items": {"type": "string"}},
+    "limits": {
+      "type": "object",
+      "required": ["max_touched_files"],
+      "properties": {
+        "max_touched_files": {"type": "integer", "minimum": 1},
+        "max_changed_lines": {"type": "integer", "minimum": 1},
+        "allow_dependency_changes": {"type": "boolean"}
+      }
+    },
+    "l1_commands": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "minItems": 1,
+        "items": {"type": "string"}
+      }
+    },
+    "l1_timeout_seconds": {"type": "integer", "minimum": 1},
+    "invariants": {"type": "array", "items": {"type": "string"}}
+  },
+  "additionalProperties": true
+}

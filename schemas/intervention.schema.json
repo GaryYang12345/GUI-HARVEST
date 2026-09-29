@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:gui-harvest:schema:intervention-v1",
+  "title": "GUI-HARVEST intervention proposal",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "proposal_id",
+    "base_behavior_hash",
+    "targets",
+    "attribution",
+    "intervention",
+    "predictions",
+    "checks"
+  ],
+  "properties": {
+    "schema_version": {"const": "gui-harvest-intervention-v1"},
+    "proposal_id": {"type": "string", "minLength": 1},
+    "base_behavior_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "baseline_root": {"type": "string"},
+    "candidate_root": {"type": "string"},
+    "harness_adapter": {"type": "string"},
+    "targets": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["candidate_id", "lane", "outcome_category"],
+        "properties": {
+          "candidate_id": {"type": "string"},
+          "lane": {"enum": ["recurrent", "opportunistic"]},
+          "outcome_category": {"type": "string"}
+        }
+      }
+    },
+    "attribution": {
+      "type": "object",
+      "required": ["source_locations"],
+      "properties": {
+        "surface": {"type": "string"},
+        "mechanism": {"type": "string"},
+        "source_locations": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["path", "anchor"],
+            "properties": {
+              "path": {"type": "string"},
+              "symbol": {"type": "string"},
+              "anchor": {"type": "string"}
+            }
+          }
+        }
+      }
+    },
+    "intervention": {
+      "type": "object",
+      "required": ["change_kind", "summary", "genericity", "patch_manifest"],
+      "properties": {
+        "change_kind": {
+          "enum": ["parameter", "prompt", "control_flow", "new_component"]
+        },
+        "summary": {"type": "string"},
+        "genericity": {"type": "string"},
+        "patch_manifest": {"type": "array", "minItems": 1}
+      }
+    },
+    "predictions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "prediction_id",
+          "statement",
+          "observable_test",
+          "target_task_ids"
+        ],
+        "properties": {
+          "prediction_id": {"type": "string"},
+          "statement": {"type": "string"},
+          "observable_test": {"type": "string"},
+          "target_candidate_ids": {"type": "array", "items": {"type": "string"}},
+          "target_task_ids": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+          "required_for_promotion": {"type": "boolean"}
+        }
+      }
+    },
+    "prior_attempts_addressed": {"type": "array"},
+    "invariants": {"type": "array", "items": {"type": "string"}},
+    "expected_regression_risks": {"type": "array"},
+    "checks": {"type": "object"},
+    "harness_card": {"type": "object"}
+  },
+  "additionalProperties": true
+}
